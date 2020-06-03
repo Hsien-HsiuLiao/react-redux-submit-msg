@@ -1,26 +1,57 @@
 import React from 'react';
-import logo from './logo.svg';
+
 import './App.css';
 
-function App() {
+import DisplayMessages from './DisplayMessages.js';
+import { Provider } from 'react-redux';
+import { createStore } from 'redux';
+/* function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      
     </div>
   );
 }
+*/
+
+//redux
+const ADD = 'ADD';
+
+const addMessage = (message) => {
+  return {
+    type: ADD,
+    message
+  }
+};
+
+const messageReducer = (state = [], action) => {
+  switch (action.type) {
+    case ADD:
+      return [
+        ...state,
+        action.message
+      ];
+    default:
+      return state;
+  }
+};
+
+//       const store = Redux.createStore(messageReducer);
+const store = createStore(messageReducer);
+
+//redux
+
+//       const Provider = ReactRedux.Provider;
+
+//class AppWrapper extends React.Component {
+  class App extends React.Component {  
+  render() {
+    return(
+      <Provider store={store}>
+        <DisplayMessages />
+      </Provider>
+    )
+  }
+};
 
 export default App;
